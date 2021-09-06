@@ -3,6 +3,8 @@ import useScript from '../hooks/useScript'
 
 interface Props {
   account: string
+  production?: boolean
+  name?: string
   kbId: number
   locale: string
   cookieOptin: boolean
@@ -17,6 +19,8 @@ interface Props {
 
 const SmartFAQ: React.FC<Props> = ({
   account,
+  production,
+  name,
   kbId,
   locale,
   cookieOptin,
@@ -28,7 +32,11 @@ const SmartFAQ: React.FC<Props> = ({
   headerId,
   entrypoint,
 }) => {
-  useScript(`https://assets.app.smart-tribune.com/${account}/FAQ/faq.main.js`)
+  useScript(
+    `https://assets.app.smart-tribune.com/${account}/FAQ/${
+      production ? '' : 'public/'
+    }${name || 'faq'}.main.js`
+  )
 
   useEffect(() => {
     var element: CustomWindow = window

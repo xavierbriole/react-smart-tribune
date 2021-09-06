@@ -3,6 +3,8 @@ import useScript from '../hooks/useScript'
 
 interface Props {
   account: string
+  production?: boolean
+  name?: string
   kbId: number
   locale: string
   cookieOptin: boolean
@@ -15,6 +17,8 @@ interface Props {
 
 const SmartPUSH: React.FC<Props> = ({
   account,
+  production,
+  name,
   kbId,
   locale,
   cookieOptin,
@@ -24,7 +28,11 @@ const SmartPUSH: React.FC<Props> = ({
   filters,
   entrypoint,
 }) => {
-  useScript(`https://assets.app.smart-tribune.com/${account}/PUSH/push.main.js`)
+  useScript(
+    `https://assets.app.smart-tribune.com/${account}/PUSH/${
+      production ? '' : 'public/'
+    }${name || 'push'}.main.js`
+  )
 
   useEffect(() => {
     var element: CustomWindow = window
